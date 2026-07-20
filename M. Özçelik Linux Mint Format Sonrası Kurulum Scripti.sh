@@ -15,7 +15,7 @@ echo "== PAKETLER KURULUYOR =="
 echo "=============================="
 
 sudo apt update
-sudo apt install -y numlockx fish steam wine winetricks
+sudo apt install -y numlockx fish steam wine winetricks audacious
 
 echo "=============================="
 echo "== FISH SHELL AYARLANIYOR =="
