@@ -11,9 +11,10 @@ sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\
 sudo update-grub
 
 echo "=============================="
-echo "== PAKETLER KURULUYOR =="
+echo "== GEREKSİZ PAKETLER TEMİZLENİYOR VE YENİ PAKETLER KURULUYOR =="
 echo "=============================="
 
+sudo apt purge -y thunderbird transmission-gtk libreoffice rhythmbox && sudo apt autoremove --purge -y
 sudo apt update
 sudo apt install -y numlockx fish steam wine winetricks audacious
 
