@@ -15,7 +15,7 @@ echo "== PAKETLER KURULUYOR =="
 echo "=============================="
 
 sudo apt update
-sudo apt install -y numlockx fish steam wine winetricks flatpak
+sudo apt install -y numlockx fish steam wine winetricks
 
 echo "=============================="
 echo "== FISH SHELL AYARLANIYOR =="
@@ -34,13 +34,14 @@ org.audacityteam.Audacity \
 org.nickvision.tubeconverter \
 org.onlyoffice.desktopeditors \
 net.davidotek.pupgui2 \
+com.spotify.Client \
 com.heroicgameslauncher.hgl
 
 echo "=============================="
 echo "== Winetricks Kurulumları =="
 echo "=============================="
 
-winetricks -q d3dx9 dotnet40 dotnet45 dotnet48 vcrun2022 vcrun6sp6
+winetricks -q dotnet40 dotnet45 dotnet48 vcrun2022 vcrun6sp6
 
 echo "=============================="
 echo "== DXVK (FL için gerekli) =="
