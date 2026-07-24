@@ -3,14 +3,6 @@
 set -e
 
 echo "=============================="
-echo "== GRUB PARAMETRELERİ EKLENİYOR =="
-echo "=============================="
-
-sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 acpi_backlight=native nvme_core.default_ps_max_latency_us=0"/' /etc/default/grub
-
-sudo update-grub
-
-echo "=============================="
 echo "== GEREKSİZ PAKETLER TEMİZLENİYOR VE YENİ PAKETLER KURULUYOR =="
 echo "=============================="
 
@@ -99,9 +91,17 @@ zramctl
 echo
 echo "Swappiness değeri:"
 cat /proc/sys/vm/swappiness
+echo
+
+echo "=============================="
+echo "== GRUB PARAMETRELERİ EKLENİYOR =="
+echo "=============================="
+
+sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 acpi_backlight=native nvme_core.default_ps_max_latency_us=0"/' /etc/default/grub
+sudo update-grub
 
 echo "=============================="
 echo "== BİTTİ =="
 echo "=============================="
 
-echo "Reboot önerilir"
+echo "Lütfen sistemi rebootla bebeğim."
