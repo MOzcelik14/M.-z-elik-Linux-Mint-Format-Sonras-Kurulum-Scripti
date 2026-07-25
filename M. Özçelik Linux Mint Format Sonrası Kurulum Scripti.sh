@@ -3,18 +3,21 @@
 set -e
 
 echo "=============================="
-echo "== GEREKSİZ PAKETLER TEMİZLENİYOR VE YENİ PAKETLER KURULUYOR =="
+echo "== GEREKSİZ BİLEŞENLER KALDIRILIYOR VE YENİ PAKETLER KURULUYOR =="
 echo "=============================="
 
+systemctl disable NetworkManager-wait-online.service
 sudo apt purge -y thunderbird transmission-gtk warpinator rhythmbox && sudo apt autoremove --purge -y
+sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
 sudo apt update
-sudo apt install -y numlockx fish steam wine winetricks audacious
+sudo apt install -y numlockx fish steam wine winetricks audacious fastfetch btop
 
 echo "=============================="
-echo "== FISH SHELL AYARLANIYOR =="
+echo "== SHELL AYARLANIYOR =="
 echo "=============================="
 
 chsh -s /usr/bin/fish
+curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 echo "=============================="
 echo "== FlatPak Uygulamaları =="
@@ -91,6 +94,125 @@ zramctl
 echo
 echo "Swappiness değeri:"
 cat /proc/sys/vm/swappiness
+echo
+
+echo "Fish yapılandırılıyor..."
+
+mkdir -p ~/.config/fish
+
+cat > ~/.config/fish/config.fish <<'EOF'
+if status is-interactive
+    echo " "
+    set_color normal
+
+    # Fastfetch
+    fastfetch
+
+    echo
+end
+
+# Starship
+starship init fish | source
+
+alias güncelle='sudo apt update || true && sudo apt upgrade -y && flatpak update'
+alias temizle='sudo apt autoremove && sudo apt autoclean -y && flatpak uninstall --unused'
+alias yükle='sudo apt install'
+alias fyükle='flatpak install'
+alias sil='sudo apt remove'
+alias fsil='flatpak remove'
+alias kapa='poweroff'
+alias söyle='echo'
+EOF
+
+echo
+
+echo "Fastfetch yapılandırılıyor..."
+
+mkdir -p ~/.config/fastfetch
+
+cat > ~/.config/fastfetch/config.jsonc <<'EOF'
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "display": {
+    "key": {
+      "width": 10
+    },
+    "size": {
+      "binaryPrefix": "jedec"
+    },
+    "separator": ""
+  },
+  "logo": {
+    "type": "kitty-direct",
+    "source": "~/.config/fastfetch/marin.png",
+    "width": 20,
+    "height": 10
+  },
+  "modules": [
+    "break",
+    {
+      "type": "os",
+      "key": "is",
+      "keyColor": "yellow",
+      "format": "{name}"
+    },
+    {
+      "type": "kernel",
+      "key": "lnx",
+      "keyColor": "green"
+    },
+    {
+      "type": "packages",
+      "key": "pkgs",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "uptime",
+      "key": "çs",
+      "keyColor": "green"
+    },
+    {
+      "type": "cpu",
+      "key": "mib",
+      "keyColor": "red",
+      "format": "{name}"
+    },
+    {
+      "type": "gpu",
+      "key": "gib",
+      "keyColor": "red",
+      "format": "{name}"
+    },
+    {
+      "type": "memory",
+      "key": "ram",
+      "keyColor": "yellow",
+      "format": "{used} / {total}"
+    },
+    {
+      "type": "swap",
+      "key": "swp-zram",
+      "keyColor": "yellow",
+      "format": "{used} / {total}"
+    },
+    {
+      "type": "disk",
+      "key": "dep",
+      "keyColor": "cyan",
+      "folders": [
+        "/"
+      ],
+      "format": "{size-used} / {size-total}"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[33m󰮯 \u001b[32m󰊠 \u001b[34m󰊠 \u001b[31m󰊠 \u001b[36m󰊠 \u001b[35m󰊠 \u001b[37m󰊠 \u001b[97m󰊠"
+    }
+  ]
+}
+EOF
+
 echo
 
 echo "=============================="
