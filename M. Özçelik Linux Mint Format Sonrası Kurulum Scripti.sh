@@ -2,10 +2,21 @@
 
 set -e
 
+
+echo "=============================="
+echo "== GRUB PARAMETRELERİ EKLENİYOR =="
+echo "=============================="
+
+sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 acpi_backlight=native nvme_core.default_ps_max_latency_us=0"/' /etc/default/grub
+sudo update-grub
+
+echo
+
 echo "=============================="
 echo "== GEREKSİZ BİLEŞENLER KALDIRILIYOR VE YENİ PAKETLER KURULUYOR =="
 echo "=============================="
 
+sudo apt update
 systemctl disable NetworkManager-wait-online.service
 sudo apt purge -y thunderbird transmission-gtk warpinator rhythmbox && sudo apt autoremove --purge -y
 sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
@@ -17,7 +28,6 @@ echo "== SHELL AYARLANIYOR =="
 echo "=============================="
 
 chsh -s /usr/bin/fish
-set -U fish_greeting ""
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 echo "=============================="
@@ -216,12 +226,6 @@ EOF
 
 echo
 
-echo "=============================="
-echo "== GRUB PARAMETRELERİ EKLENİYOR =="
-echo "=============================="
-
-sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 acpi_backlight=native nvme_core.default_ps_max_latency_us=0"/' /etc/default/grub
-sudo update-grub
 
 echo "=============================="
 echo "== BİTTİ =="
