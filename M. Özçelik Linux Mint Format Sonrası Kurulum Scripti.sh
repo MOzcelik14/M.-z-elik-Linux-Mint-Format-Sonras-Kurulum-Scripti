@@ -17,6 +17,7 @@ echo "== SHELL AYARLANIYOR =="
 echo "=============================="
 
 chsh -s /usr/bin/fish
+set -U fish_greeting ""
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 echo "=============================="
