@@ -21,7 +21,7 @@ systemctl disable NetworkManager-wait-online.service
 sudo apt purge -y thunderbird transmission-gtk warpinator rhythmbox && sudo apt autoremove --purge -y
 sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
 sudo apt update
-sudo apt install -y numlockx fish steam wine winetricks audacious fastfetch btop
+sudo apt install -y numlockx fish steam wine winetricks audacious fastfetch btop rar unrar
 
 echo "=============================="
 echo "== SHELL AYARLANIYOR =="
