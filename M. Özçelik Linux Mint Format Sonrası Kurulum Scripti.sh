@@ -47,7 +47,7 @@ echo "=============================="
 echo "== Winetricks Kurulumları =="
 echo "=============================="
 
-winetricks -q dotnet40 dotnet45 dotnet48 vcrun2022 vcrun6sp6
+winetricks -q dotnet40 dotnet45 dotnet48 vcrun2022 vcrun6sp6 corefonts
 
 echo "=============================="
 echo "== DXVK (FL için gerekli) =="
