@@ -48,7 +48,7 @@ winetricks dxvk2030
 echo "==> zRAM, Swap ve Swappiness ayarlanıyor..."
 
 # zramswap kurulu değilse kur
-sudo apt install -y zramswap
+sudo apt install -y zram-tools
 
 # zRAM yapılandırması
 sudo tee /etc/default/zramswap >/dev/null <<EOF
